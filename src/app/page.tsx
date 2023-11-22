@@ -1,7 +1,13 @@
-import Image from "next/image";
+{
+  /* The following line can be included in your src/index.js or App.js file */
+}
+import "bootstrap/dist/css/bootstrap.min.css";
+import Product from "@/components/Product";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+    <>
+      <Product />
+    </>
   );
 }

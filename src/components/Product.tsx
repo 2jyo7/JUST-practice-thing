@@ -12,27 +12,31 @@ const Product = () => {
       .then((data) => data.json())
       .then((result) => setProducts(result));
   }, []);
-  console.log(products);
+
+  const cards = products.map((product: any) => (
+    <div className="col-md-3 mb-3 mx-auto px-6 py-3" key={product.id}>
+      <Card className=" h-100">
+        <div className=" text-center">
+          <Card.Img
+            variant="top"
+            src={product.image}
+            style={{ width: "100px", height: "130px" }}
+          />
+        </div>
+        <Card.Body>
+          <Card.Title>{product.title}</Card.Title>
+          <Card.Text>Rs-{product.price}</Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <Button variant="primary">Add To Cart</Button>
+        </Card.Footer>
+      </Card>
+    </div>
+  ));
   return (
-    <>
-      <h1 className="font-bold text-3xl flex justify-center">
-        Product Dashboard
-      </h1>
-      <div className="rows">
-        {products.map((p: any) => {
-          <div className="col-md-3" key={p.id}>
-            <Card style={{ width: "18rem" }}>
-              <Card.Img variant="top" src={p.image} />
-              <Card.Body>
-                <Card.Title>{p.title}</Card.Title>
-                <Card.Text>{p.description}</Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </div>;
-        })}
-      </div>
-    </>
+    <div>
+      <div className="row">{cards}</div>
+    </div>
   );
 };
 

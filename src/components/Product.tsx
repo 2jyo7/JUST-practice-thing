@@ -12,7 +12,7 @@ const Product = () => {
       .then((data) => data.json())
       .then((result) => setProducts(result));
   }, []);
-
+  console.log(products);
   return (
     <>
       <h1 className="font-bold text-3xl flex justify-center">

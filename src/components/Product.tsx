@@ -6,16 +6,28 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "@/store/cartSlice";
 import { getProducts } from "@/store/productSlice";
+import { Alert } from "react-bootstrap";
 
 const Product = () => {
   const dispatch = useDispatch<any>();
-  const { data: products } = useSelector<any>((state) => state.product);
+  const { data: products, status } = useSelector<any>((state) => state.product);
   useEffect(() => {
     //fetch("https://fakestoreapi.com/products")
     //.then((data) => data.json())
     // .then((result) => setProducts(result));
     dispatch(getProducts());
   }, []);
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+  if (status === "error") {
+    return (
+      <Alert key="danger" variant="danger">
+        Something went wrong! Try again later
+      </Alert>
+    );
+  }
 
   const addToCart = (product: any) => {
     dispatch(add(product));

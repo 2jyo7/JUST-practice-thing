@@ -1,24 +1,16 @@
 "use client";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { add } from "@/store/cartSlice";
-import { getProducts } from "@/store/productSlice";
+import { remove } from "@/store/cartSlice";
 
-const Product = () => {
-  const dispatch = useDispatch<any>();
-  const { data: products } = useSelector<any>((state) => state.product);
-  useEffect(() => {
-    //fetch("https://fakestoreapi.com/products")
-    //.then((data) => data.json())
-    // .then((result) => setProducts(result));
-    dispatch(getProducts());
-  }, []);
+const Cart = () => {
+  const dispatch = useDispatch();
+  const products: any = useSelector<any>((state) => state.cart);
 
-  const addToCart = (product: any) => {
-    dispatch(add(product));
+  const removeItem = (id: any) => {
+    dispatch(remove(id));
   };
 
   const cards = products.map((product: any) => (
@@ -36,8 +28,8 @@ const Product = () => {
           <Card.Text>Rs-{product.price}</Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Button variant="primary" onClick={() => addToCart(product)}>
-            Add To Cart
+          <Button variant="danger" onClick={() => removeItem(product.id)}>
+            Remove Item
           </Button>
         </Card.Footer>
       </Card>
@@ -50,4 +42,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Cart;
